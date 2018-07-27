@@ -1,7 +1,9 @@
 <?php
 
 include 'Export.php';
-require __DIR__.'/vendor/autoload.php';
+
+#Include PHP-Elasticsearch sdk's 'autoload.php' here
+require '/yourpath/elasticsearch-php-sdk/vendor/autoload.php';
 
 $op = array("host:", "index:","type:","query:","stm:","fields:", "size:", "csvfile:", "logfile:", "help:");
 $option = getopt(null,$op);
