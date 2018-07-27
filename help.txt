@@ -1,0 +1,13 @@
+Optional argument
+
+--host      HOST:PORT       Elasticsearch hostname with port e.g. example.com:9200             [required]
+--index     NAME            Index name                                                         [required]
+--type      TYPE            Specified type
+--query     QUERY           Query string in Lucene syntax    
+--stm       TIME            Value in seconds to open search context in Scroll API. Default
+                            it set to 30.                                                      
+--fields    field1,field2   Specify Field need to fetch with comma sperated.                   [required] 
+--size      SIZE            Per scroll api how much data should fetch in one call. By Default
+                            it set to 100.                                                     
+--csvfile   CSVPATH         Path to csv file where to export.                                  [required]                         
+--logfile   LOGFILEPATH     Path to log file where log will be write.                             
