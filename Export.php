@@ -113,6 +113,8 @@ class Export{
     {
         foreach($response['hits']['hits'] as $key => $records){
             $this->recordsToWrite[] = $records['_source'];
+                $this->recordsProcessed++;
+                $this->progress_bar($this->recordsProcessed, $this->totalRecords, "Progress");
         }
     }
 
@@ -123,8 +125,6 @@ class Export{
 
                 $row = array_replace($this->fieldsArray,$rec);
                 fputcsv($this->fo,$row);   
-                $this->recordsProcessed++;
-                $this->progress_bar($this->recordsProcessed, $this->totalRecords, "Progress");
             }   
         }
         $this->recordsToWrite = array();
