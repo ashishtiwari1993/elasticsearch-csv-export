@@ -41,3 +41,8 @@ Optional argument
 * It not works for nested fields like ```[{}]```. You can only specifiy fileds which has single key value.
 ## Example
 ```php process.php --host 'localhost:9200' --index 'myindex' --type 'logs' --fields 'balance,firstname,gender,state,city' --stm 60 --size 500 --query '{"query":{"match":{"gender":"M"}}}' --csvfile '/home/ashish/records.csv' --logfile '/tmp/b.log```
+## Future release
+* Export data in background by creating child process.
+* Allow Nested fileds for export.
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details
