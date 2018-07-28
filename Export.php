@@ -85,7 +85,6 @@ class Export{
                 if($i == 1){
                     $this->log("Found total records = ".$response['hits']['total']);
                     $this->totalRecords = $response['hits']['total'];
-                    echo "Progress :   0%"; 
                 }
 
                 $this->processRecords($response);
@@ -125,11 +124,7 @@ class Export{
                 $row = array_replace($this->fieldsArray,$rec);
                 fputcsv($this->fo,$row);   
                 $this->recordsProcessed++;
-
-                $percent = round(($this->recordsProcessed/$this->totalRecords)*100);
-
-                echo "\033[5D";
-                echo str_pad($percent, 3, ' ', STR_PAD_LEFT) . " %";
+                $this->progress_bar($this->recordsProcessed, $this->totalRecords, "Progress");
             }   
         }
         $this->recordsToWrite = array();
@@ -145,6 +140,13 @@ class Export{
             }    
         }    
     }
+
+    function progress_bar($done, $total, $info="", $width=50) 
+    {
+        $perc = round(($done * 100) / $total);
+        $bar = round(($width * $perc) / 100);
+        echo sprintf("%s%%[%s>%s]%s\r", $perc, str_repeat("=", $bar), str_repeat(" ", $width-$bar), $info);
+    }    
 }
 
 ?>
