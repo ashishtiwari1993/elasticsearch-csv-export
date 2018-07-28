@@ -45,4 +45,4 @@ Optional argument
 * Export data in background by creating child process.
 * Allow Nested fileds for export.
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE file for details
