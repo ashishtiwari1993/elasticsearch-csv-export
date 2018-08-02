@@ -4,19 +4,12 @@ use Elasticsearch\ClientBuilder;
 
 class Export{
 
-    public  $host, $fields, $query, $stm = 30, $size = 100, $csvfile, $logfile;
-    private $es, $header = array(), $paramm, $fo, $recordsToWrite, $fieldsArray, $totalRecords, $recordsProcessed = 1, $batchWrite = 5;
+    public  $host, $fields, $query, $stm = 30, $size = 100, $logfile, $csvFileObject;
+    private $es, $header = array(), $paramm, $recordsToWrite, $fieldsArray, $totalRecords, $recordsProcessed = 1, $batchWrite = 5;
 
     function connect()
     {
         try{
-
-            if(!empty($this->logfile)){
-                $this->lofo = fopen($this->logfile,"w");
-                if(!$this->lofo){
-                    echo "Check with your logfile."; exit;
-                }
-            }
 
             $hosts = [
                 'host' => $this->host,    
@@ -28,6 +21,7 @@ class Export{
             $this->log("Connected successfully ...");
 
         }catch(exception $e){
+            echo "Error while connecting to Elasticsearch ..";
             $this->log($e);
         }
     }
@@ -55,7 +49,7 @@ class Export{
             }
 
             if(!empty($this->query)){
-                $paramBuild['body'] = $this->query;
+                $paramBuild['body'] = json_decode($this->query,true);
             }
 
             $this->param = $paramBuild;
@@ -65,20 +59,22 @@ class Export{
         }
     }
 
-    function fetchDataWriteCSV()
+    function fetchDataWriteCSV($id = null ,$max = null)
     {
         try{
 
-            $this->fo = fopen($this->csvfile,"w");
-            if(!$this->fo){
+            if(!$this->csvFileObject){
                 $this->log("Check with your csvfile."); exit;
+            }
+
+            if(!empty($id) && !empty($max)){
+                $this->param['body']['slice']['id'] = $id;
+                $this->param['body']['slice']['max'] = $max;
             }
 
             $response = $this->es->search($this->param);
 
             $i = 1;
-
-            fputcsv($this->fo,explode(',',$this->fields));
 
             while (isset($response['hits']['hits']) && count($response['hits']['hits']) > 0) {
 
@@ -102,7 +98,6 @@ class Export{
             }
 
             $this->writeFile();
-            fclose($this->fo);
 
         }catch(Exception $e){
             $this->log($e);
@@ -113,8 +108,7 @@ class Export{
     {
         foreach($response['hits']['hits'] as $key => $records){
             $this->recordsToWrite[] = $records['_source'];
-                $this->recordsProcessed++;
-                $this->progress_bar($this->recordsProcessed, $this->totalRecords, "Progress");
+            $this->recordsProcessed++;
         }
     }
 
@@ -124,7 +118,7 @@ class Export{
             foreach($this->recordsToWrite as $rec){
 
                 $row = array_replace($this->fieldsArray,$rec);
-                fputcsv($this->fo,$row);   
+                fputcsv($this->csvFileObject,$row);   
             }   
         }
         $this->recordsToWrite = array();
@@ -140,13 +134,6 @@ class Export{
             }    
         }    
     }
-
-    function progress_bar($done, $total, $info="", $width=50) 
-    {
-        $perc = round(($done * 100) / $total);
-        $bar = round(($width * $perc) / 100);
-        echo sprintf("%s%%[%s>%s]%s\r", $perc, str_repeat("=", $bar), str_repeat(" ", $width-$bar), $info);
-    }    
 }
 
 ?>
