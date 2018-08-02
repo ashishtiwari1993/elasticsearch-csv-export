@@ -44,7 +44,7 @@ Optional argument
 * For ```--async``` request, We using [```pcntl_fork```](http://php.net/manual/en/function.pcntl-fork.php) to forking child processes. It will fetch all data asynchronously irrespective of any order or sorting.
 
 ## Example
-```php process.php --host 'localhost:9200' --index 'myindex' --type 'logs' --fields 'balance,firstname,gender,state,city' --stm 60 --size 500 --query '{"query":{"match":{"gender":"M"}}}' --csvfile '/home/ashish/records.csv' --logfile '/tmp/b.log --async 2```
+```php process.php --host 'localhost:9200' --index 'myindex' --type 'logs' --fields 'balance,firstname,gender,state,city' --stm 60 --size 500 --query '{"query":{"match":{"gender":"M"}}}' --csvfile '/home/ashish/records.csv' --logfile '/tmp/b.log' --async 2```
 ## Future release
 * Allow multi index exporting.
 * Allow Nested fileds for export.
