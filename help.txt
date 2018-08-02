@@ -1,13 +1,23 @@
+php process.php [--host HOSTNAME:PORT] [--index INDEX] [--type TYPE]
+                [--query  QUERY] [--stm  TIMEOUT] [--fields FIELD1,FIELD2]
+                [--size SIZE] [--csvfile CSVPATH] [--logfile LOGPATH] [--async NUMBER_OF_SLICE]  
+                
 Optional argument
 
 --host      HOST:PORT       Elasticsearch hostname with port e.g. example.com:9200             [required]
 --index     NAME            Index name                                                         [required]
 --type      TYPE            Specified type
 --query     QUERY           Query string in Lucene syntax    
---stm       TIME            Value in seconds to open search context in Scroll API. Default
-                            it set to 30.                                                      
---fields    field1,field2   Specify Field need to fetch with comma sperated.                   [required] 
+--stm       TIME            Value in seconds to open search context in Scroll API. By default
+                            it set to 30.                                             
+         
+--fields    field1,field2   Specify Field need to fetch with comma sperated.
+                            It won't work for nested fields.                                   [required] 
+
 --size      SIZE            Per scroll api how much data should fetch in one call. By Default
                             it set to 100.                                                     
+
 --csvfile   CSVPATH         Path to csv file where to export.                                  [required]                         
---logfile   LOGFILEPATH     Path to log file where log will be write.                             
+--logfile   LOGFILEPATH     Path to log file where log will be write. 
+--async     2               The maximum number of slices for scroll API. It will fork same
+                            Number of child process.
