@@ -39,9 +39,6 @@ if(!empty($option['logfile'])){
     }
 }
 
-$e->connect();
-$e->queryParam();
-
 $csvfile = fopen($option['csvfile'],"w");
 
 if($csvfile){
@@ -50,6 +47,11 @@ if($csvfile){
 }else{
     echo "Check with your csvfile";
 }
+
+$e->fields = preg_replace('/\s+/', '', $option['fields']);;
+$e->connect();
+$e->queryParam();
+
 
 if(array_key_exists('async', $option)){
     if(!empty($option['async'])){

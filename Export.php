@@ -5,7 +5,7 @@ use Elasticsearch\ClientBuilder;
 class Export{
 
     public  $host, $fields, $query, $stm = 30, $size = 100, $logfile, $csvFileObject;
-    private $es, $header = array(), $paramm, $recordsToWrite, $fieldsArray, $totalRecords, $recordsProcessed = 1, $batchWrite = 5;
+    private $es, $header = array(), $paramm, $recordsToWrite, $fieldsArray, $totalRecords, $recordsProcessed = 1;
 
     function connect()
     {
@@ -78,16 +78,8 @@ class Export{
 
             while (isset($response['hits']['hits']) && count($response['hits']['hits']) > 0) {
 
-                if($i == 1){
-                    $this->log("Found total records = ".$response['hits']['total']);
-                    $this->totalRecords = $response['hits']['total'];
-                }
-
                 $this->processRecords($response);
-
-                if($i % $this->batchWrite == 0){
-                    $this->writeFile();
-                }
+                $this->writeFile();
 
                 $scroll_id = $response['_scroll_id'];
                 $response = $this->es->scroll([
@@ -96,8 +88,6 @@ class Export{
                 ]);
                 $i++;
             }
-
-            $this->writeFile();
 
         }catch(Exception $e){
             $this->log($e);
@@ -116,7 +106,6 @@ class Export{
     {
         if(!empty($this->recordsToWrite)){
             foreach($this->recordsToWrite as $rec){
-
                 $row = array_replace($this->fieldsArray,$rec);
                 fputcsv($this->csvFileObject,$row);   
             }   
