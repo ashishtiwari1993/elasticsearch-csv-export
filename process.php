@@ -1,6 +1,6 @@
 <?php
 
-include 'Export.php';
+include 'Export.class.php';
 #Include PHP-Elasticsearch sdk's 'autoload.php' here
 require '/var/www/html/elastic-csv-export/vendor/autoload.php';
 
