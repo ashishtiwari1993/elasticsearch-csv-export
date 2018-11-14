@@ -1,7 +1,7 @@
 # elasticsearch-csv-export 
 
 ## CLI script for CSV export from ES
-A script which written in PHP, Will query in Elasticsearch and fetch the bulk data with help of the Scroll API. We can specify query in Query DSL syntax same as you gives in any POST API call while query to ES. Script does bulk write to the CSV file with the selected fields. You can also export your data asynchronously, It will fetch data by forking child process and run them parallely.  
+A script which written in PHP, Will query in Elasticsearch and fetch the bulk data with help of the Scroll API. We can specify query in **Query DSL** syntax . Script does bulk write to the CSV file with the selected fields. You can also export your data asynchronously, It will fetch data by forking child process and run them parallely. There is also class file **Export.class.php**, Which you can easily integrate with your custom script or application. It requires official **Elasticsearch-PHP** SDK to run.
 
 ## Requirements
 * PHP version >= 5
@@ -10,7 +10,8 @@ A script which written in PHP, Will query in Elasticsearch and fetch the bulk da
 ## Installation
 * Install PHP-Elasticsearch SDK as mention [here](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/_installation_2.html) . You can find doc according to your ES versions.
 * ```git clone https://github.com/ashishtiwari1993/elasticsearch-csv-export.git``` .
-* Include PHP-Elasticsearch sdk's ```/vendor/autoload.php```  in ```process.php```.
+* Include PHP-Elasticsearch sdk's ```/vendor/autoload.php```  in ```process.php```. Like below
+```require '/var/www/html/elastic-csv-export/vendor/autoload.php';```
 
 ## Usage
 
