@@ -59,7 +59,7 @@ class Export{
         }
     }
 
-    function fetchDataWriteCSV($id = null ,$max = null)
+    function fetchDataWriteCSV($id = 0 ,$max = 1)
     {
         try{
 
@@ -67,10 +67,8 @@ class Export{
                 $this->log("Check with your csvfile."); exit;
             }
 
-            if(!empty($id) && !empty($max)){
-                $this->param['body']['slice']['id'] = $id;
-                $this->param['body']['slice']['max'] = $max;
-            }
+            $this->param['body']['slice']['id'] = $id;
+            $this->param['body']['slice']['max'] = $max;
 
             $response = $this->es->search($this->param);
 
