@@ -2,7 +2,7 @@
 
 include 'Export.class.php';
 #Include PHP-Elasticsearch sdk's 'autoload.php' here
-require '/var/www/html/elastic-csv-export/vendor/autoload.php';
+require '/PHP-Elasticsearch-SDK/vendor/autoload.php';
 
 $op = array("host:", "index:", "fields:", "csvfile:", "type:", "size:", "query:", "stm:", "logfile:", "async:", "help::");
 $option = getopt(null,$op);
