@@ -10,7 +10,7 @@ A script which written in PHP, Will query in Elasticsearch and fetch the bulk da
 ## Installation
 * Install PHP-Elasticsearch SDK as mention [here](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/_installation_2.html) . You can find doc according to your ES versions.
 * ```git clone https://github.com/ashishtiwari1993/elasticsearch-csv-export.git``` .
-* Include PHP-Elasticsearch sdk's ```/vendor/autoload.php```  in ```process.php```. Like below
+* Include PHP-Elasticsearch sdk's ```/vendor/autoload.php```  in ```process.php```. Like  
 ```require '/var/www/html/elastic-csv-export/vendor/autoload.php';```
 
 ## Usage
