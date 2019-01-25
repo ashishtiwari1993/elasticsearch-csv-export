@@ -2,7 +2,7 @@
 
 include 'Export.class.php';
 #Include PHP-Elasticsearch sdk's 'autoload.php' here
-require '/change-with-PHP-Elasticsearch-SDK-directory-path/vendor/autoload.php';
+require '../dependency/elasticsearch-sdk/vendor/autoload.php';
 
 $op = array("host:", "index:", "fields:", "csvfile:", "type:", "size:", "query:", "stm:", "logfile:", "async:", "help::");
 $option = getopt(null,$op);
@@ -23,6 +23,8 @@ foreach($requiredFields as $key => $value){
         echo "Please provide argument --".$value."\n";exit;
     }
 }
+
+$option['fields'] = '_id,'.$option['fields'];
 
 $e = new Export;
 foreach($option as $key => $value){

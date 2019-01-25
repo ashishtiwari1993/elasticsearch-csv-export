@@ -95,6 +95,7 @@ class Export{
     function processRecords($response)
     {
         foreach($response['hits']['hits'] as $key => $records){
+            $records['_source']['_id'] = $records['_id'];
             $this->recordsToWrite[] = $records['_source'];
             $this->recordsProcessed++;
         }
