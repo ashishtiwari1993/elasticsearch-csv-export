@@ -40,7 +40,7 @@ Optional argument
 ## NOTE
 * It is using Scroll API. You can find more [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html) on Scroll APIs.
 * You can specify ```--query``` using [Query string](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/query-dsl-query-string-query.html#query-string-syntax) OR [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/query-dsl.html) .It should be same as when you define ```query``` param in POST call when query to elasticsearch via curl. Check here for [example](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/query-filter-context.html).
-* It not works for nested fields like ```[{}]```. You can only specifiy fileds which has single key value.
+* For nested fileds you need to specify nested field value like ```field.key``` in `--field` param. For example with this structure ```{info:[{name:php}]}``` , I can access my key ```name``` with this way ```info.name``` .
 * For ```--async``` request, We using [```pcntl_fork```](http://php.net/manual/en/function.pcntl-fork.php) to forking child processes. It will fetch all data asynchronously irrespective of any order or sorting.
 
 ## Example
