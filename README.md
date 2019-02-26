@@ -23,7 +23,7 @@ php process.php [--host HOSTNAME:PORT] [--index INDEX] [--type TYPE]
 Optional argument
 
 --host      HOST:PORT       Elasticsearch hostname with port e.g. example.com:9200             [required]
---index     NAME            Provide Index name with comma seperated.                           [required]
+--index     NAME            Provide multiple Index name with comma seperated.                  [required]
 --type      TYPE            Specified type
 --query     QUERY           Query string in Lucene syntax    
 --stm       TIME            Value in seconds to open search context in Scroll API. Default
@@ -39,13 +39,12 @@ Optional argument
 ```
 ## NOTE
 * It is using Scroll API. You can find more [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html) on Scroll APIs.
-* At a time you can export data against one index only.
 * You can specify ```--query``` using [Query string](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/query-dsl-query-string-query.html#query-string-syntax) OR [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/query-dsl.html) .It should be same as when you define ```query``` param in POST call when query to elasticsearch via curl. Check here for [example](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/query-filter-context.html).
 * It not works for nested fields like ```[{}]```. You can only specifiy fileds which has single key value.
 * For ```--async``` request, We using [```pcntl_fork```](http://php.net/manual/en/function.pcntl-fork.php) to forking child processes. It will fetch all data asynchronously irrespective of any order or sorting.
 
 ## Example
-```php process.php --host 'localhost:9200' --index 'myindex' --type 'logs' --fields 'balance,firstname,gender,state,city' --stm 60 --size 500 --query '{"query":{"match":{"gender":"M"}}}' --csvfile '/home/ashish/records.csv' --logfile '/tmp/b.log' --async 2```
+```php process.php --host 'localhost:9200' --index 'myindex1,myindex2' --type 'logs' --fields 'balance,firstname,gender,state,city' --stm 60 --size 500 --query '{"query":{"match":{"gender":"M"}}}' --csvfile '/home/ashish/records.csv' --logfile '/tmp/b.log' --async 2```
 ## Future release
 * Allow Nested fileds for export.
 
