@@ -45,8 +45,6 @@ Optional argument
 
 ## Example
 ```php process.php --host 'localhost:9200' --index 'myindex1,myindex2' --type 'logs' --fields 'balance,firstname,gender,state,city' --stm 60 --size 500 --query '{"query":{"match":{"gender":"M"}}}' --csvfile '/home/ashish/records.csv' --logfile '/tmp/b.log' --async 2```
-## Future release
-* Allow Nested fileds for export.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details
